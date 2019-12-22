@@ -53,7 +53,7 @@ class RecentlyEditedFilesSource implements IRecommendationSource {
 
 		$nodes = array_filter($userFolder->getRecent($max), function (Node $node) {
 			try {
-				return $node->isReadable();
+				return $node->getParent()->isReadable() && $node->isReadable();
 			} catch (StorageNotAvailableException $e) {
 				return false;
 			}

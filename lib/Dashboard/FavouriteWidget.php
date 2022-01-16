@@ -31,7 +31,7 @@ use OCP\IURLGenerator;
 use OCP\IUserSession;
 use OCP\Util;
 
-class RecommendationWidget implements IWidget {
+class FavouriteWidget implements IWidget {
 
 	/** @var IInitialStateService */
 	private $initialStateService;
@@ -56,11 +56,11 @@ class RecommendationWidget implements IWidget {
 	}
 
 	public function getId(): string {
-		return 'recommendations';
+		return 'favourites';
 	}
 
 	public function getTitle(): string {
-		return $this->l10n->t('Recent files');
+		return $this->l10n->t('Favourite files');
 	}
 
 	public function getOrder(): int {
@@ -68,7 +68,7 @@ class RecommendationWidget implements IWidget {
 	}
 
 	public function getIconClass(): string {
-		return 'icon-files-dark';
+		return 'icon-files-dark see-all-dash';
 	}
 
 	public function getUrl(): ?string {
@@ -80,6 +80,6 @@ class RecommendationWidget implements IWidget {
 		if ($user === null) {
 			return;
 		}
-		Util::addScript('recommendations', 'dashboard');
+		Util::addScript('recommendations', 'favourites');
 	}
 }

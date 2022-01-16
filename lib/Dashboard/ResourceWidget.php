@@ -23,7 +23,6 @@
 
 namespace OCA\Recommendations\Dashboard;
 
-use OCA\Recommendations\Service\RecommendationService;
 use OCP\Dashboard\IWidget;
 use OCP\IInitialStateService;
 use OCP\IL10N;
@@ -31,7 +30,7 @@ use OCP\IURLGenerator;
 use OCP\IUserSession;
 use OCP\Util;
 
-class RecommendationWidget implements IWidget {
+class ResourceWidget implements IWidget {
 
 	/** @var IInitialStateService */
 	private $initialStateService;
@@ -45,22 +44,20 @@ class RecommendationWidget implements IWidget {
 	public function __construct(
 		IInitialStateService $initialStateService,
 		IUserSession $userSession,
-		RecommendationService $recommendationService,
 		IL10N $l10n,
 		IURLGenerator $urlGenerator
 	) {
 		$this->initialStateService = $initialStateService;
 		$this->userSession = $userSession;
-		$this->recommendationService = $recommendationService;
 		$this->l10n = $l10n;
 	}
 
 	public function getId(): string {
-		return 'recommendations';
+		return 'resource';
 	}
 
 	public function getTitle(): string {
-		return $this->l10n->t('Recent files');
+		return $this->l10n->t('Resource files');
 	}
 
 	public function getOrder(): int {
@@ -68,7 +65,7 @@ class RecommendationWidget implements IWidget {
 	}
 
 	public function getIconClass(): string {
-		return 'icon-files-dark';
+		return 'icon-files-dark see-all-resource';
 	}
 
 	public function getUrl(): ?string {
@@ -80,6 +77,6 @@ class RecommendationWidget implements IWidget {
 		if ($user === null) {
 			return;
 		}
-		Util::addScript('recommendations', 'dashboard');
+		Util::addScript('recommendations', 'resource');
 	}
 }

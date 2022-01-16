@@ -1,6 +1,8 @@
 /*
  * @copyright 2018 Christoph Wurst <christoph@winzerhof-wurst.at>
  *
+ * @copyright 2019-2020 Gary Kim <gary@garykim.dev>
+ *
  * @author 2018 Christoph Wurst <christoph@winzerhof-wurst.at>
  *
  * @license GNU AGPL version 3 or any later version
@@ -19,18 +21,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Axios from '@nextcloud/axios'
-import { generateUrl } from 'nextcloud-server/dist/router'
+import Vue from 'vue'
 
-export const fetchRecommendedFiles = (always) => {
-	const url = generateUrl('/apps/recommendations/api/recommendations' + (always ? '/always' : ''))
+import Nextcloud from './mixins/Nextcloud'
+import DashboardResource from './components/DashboardResource'
+import store from './store/storeresource'
 
-	return Axios.get(url)
-		.then(resp => resp.data)
-}
-export const fetchResourceFiles = () => {
-	const url = generateUrl('/apps/recommendations/api/recommendations/resource')
+Vue.mixin(Nextcloud)
+// Load recommendations
+store.dispatch('fetchResource')
 
-	return Axios.get(url)
-		.then(resp => resp.data)
-}
+document.addEventListener('DOMContentLoaded', function() {
+
+	OCA.Dashboard.register('resource', (el) => {
+		const View = Vue.extend(DashboardResource)
+		// eslint-disable-next-line no-unused-vars
+		const vm = new View({
+			propsData: {},
+			store,
+		}).$mount(el)
+	})
+
+})

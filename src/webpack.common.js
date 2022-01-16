@@ -5,6 +5,7 @@ module.exports = {
 	entry: {
 		main: path.join(__dirname, 'main.js'),
 		dashboard: path.join(__dirname, 'dashboard.js'),
+		favourites: path.join(__dirname, 'favourites.js'),
 	},
 	output: {
 		path: path.resolve(__dirname, '../js'),

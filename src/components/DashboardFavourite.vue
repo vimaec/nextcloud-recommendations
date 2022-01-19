@@ -20,7 +20,7 @@
   -->
 
 <template>
-	<DashboardWidget id="recommendations" :items="favFiles">
+	<DashboardWidget id="favs" :items="favFiles">
 		<template v-slot:default="{ item }">
 			<RecommendedFile :id="item.id"
 				:key="item.id"
@@ -33,7 +33,7 @@
 		</template>
 		<template #empty-content>
 			<EmptyContent
-				id="recommendations--empty-content"
+				id="favs--empty-content"
 				icon="icon-files-dark">
 				<template #desc>
 					{{ t('recommendations', 'No Favourite yet') }}
@@ -59,6 +59,9 @@ export default {
 			return this.$store.state.loading
 		},
 		favFiles() {
+			if(this.$store.state.favFiles.length>7){
+				$(".see-all-dash").parent().append('<a href="/index.php/apps/files/?dir=/&view=favorites">See All</a>')
+			}
 			return this.$store.state.favFiles.slice(0, 7)
 		},
 	},
@@ -66,7 +69,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	#recommendations {
+	#favs {
 		::v-deep .recommendation {
 			max-width: 100%;
 			padding: 8px 0;
@@ -90,7 +93,7 @@ export default {
 			}
 		}
 	}
-	#recommendations--empty-content {
+	#favs--empty-content {
 		text-align: center;
 		margin-top: 5vh;
 	}

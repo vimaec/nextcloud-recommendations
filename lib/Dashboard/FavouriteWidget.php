@@ -68,7 +68,7 @@ class FavouriteWidget implements IWidget {
 	}
 
 	public function getIconClass(): string {
-		return 'icon-files-dark';
+		return 'icon-files-dark see-all-dash';
 	}
 
 	public function getUrl(): ?string {

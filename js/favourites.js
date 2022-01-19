@@ -13693,6 +13693,11 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.loading;
     },
     favFiles: function favFiles() {
+
+      if (this.$store.state.favFiles.length > 7) {
+        $(".see-all-dash").parent().append('<a href="/index.php/apps/files/?dir=/&view=favorites">See All</a>');
+      }
+
       return this.$store.state.favFiles.slice(0, 7);
     }
   }
@@ -17834,7 +17839,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "#recommendations[data-v-5aba3c25]  .recommendation {\n  max-width: 100%;\n  padding: 8px 0;\n  margin-right: 0;\n  border-radius: var(--border-radius-large);\n}\n#recommendations[data-v-5aba3c25]  .recommendation .thumbnail {\n  margin-left: 8px;\n  width: 44px;\n  height: 44px;\n}\n#recommendations[data-v-5aba3c25]  .recommendation .details .file-name .extension {\n  vertical-align: top;\n}\n#recommendations[data-v-5aba3c25]  .recommendation .details .reason {\n  display: none;\n}\n#recommendations--empty-content[data-v-5aba3c25] {\n  text-align: center;\n  margin-top: 5vh;\n}", "",{"version":3,"sources":["webpack://./src/components/DashboardFavourite.vue","webpack://./DashboardFavourite.vue"],"names":[],"mappings":"AAqEC;EACC,eAAA;EACA,cAAA;EACA,eAAA;EACA,yCAAA;ACpEF;ADsEE;EACC,gBAAA;EACA,WAAA;EACA,YAAA;ACpEH;ADwEG;EACC,mBAAA;ACtEJ;ADyEG;EACC,aAAA;ACvEJ;AD4EA;EACC,kBAAA;EACA,eAAA;ACzED","sourcesContent":["\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#recommendations {\n\t::v-deep .recommendation {\n\t\tmax-width: 100%;\n\t\tpadding: 8px 0;\n\t\tmargin-right: 0;\n\t\tborder-radius: var(--border-radius-large);\n\n\t\t.thumbnail {\n\t\t\tmargin-left: 8px;\n\t\t\twidth: 44px;\n\t\t\theight: 44px;\n\t\t}\n\n\t\t.details {\n\t\t\t.file-name .extension {\n\t\t\t\tvertical-align: top;\n\t\t\t}\n\n\t\t\t.reason {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t}\n\t}\n}\n#recommendations--empty-content {\n\ttext-align: center;\n\tmargin-top: 5vh;\n}\n\n","#recommendations ::v-deep .recommendation {\n  max-width: 100%;\n  padding: 8px 0;\n  margin-right: 0;\n  border-radius: var(--border-radius-large);\n}\n#recommendations ::v-deep .recommendation .thumbnail {\n  margin-left: 8px;\n  width: 44px;\n  height: 44px;\n}\n#recommendations ::v-deep .recommendation .details .file-name .extension {\n  vertical-align: top;\n}\n#recommendations ::v-deep .recommendation .details .reason {\n  display: none;\n}\n\n#recommendations--empty-content {\n  text-align: center;\n  margin-top: 5vh;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "#favs[data-v-5aba3c25]  .recommendation {\n  max-width: 100%;\n  padding: 8px 0;\n  margin-right: 0;\n  border-radius: var(--border-radius-large);\n}\n#favs[data-v-5aba3c25]  .recommendation .thumbnail {\n  margin-left: 8px;\n  width: 44px;\n  height: 44px;\n}\n#favs[data-v-5aba3c25]  .recommendation .details .file-name .extension {\n  vertical-align: top;\n}\n#favs[data-v-5aba3c25]  .recommendation .details .reason {\n  display: none;\n}\n#favs--empty-content[data-v-5aba3c25] {\n  text-align: center;\n  margin-top: 5vh;\n}", "",{"version":3,"sources":["webpack://./src/components/DashboardFavourite.vue","webpack://./DashboardFavourite.vue"],"names":[],"mappings":"AAyEC;EACC,eAAA;EACA,cAAA;EACA,eAAA;EACA,yCAAA;ACxEF;AD0EE;EACC,gBAAA;EACA,WAAA;EACA,YAAA;ACxEH;AD4EG;EACC,mBAAA;AC1EJ;AD6EG;EACC,aAAA;AC3EJ;ADgFA;EACC,kBAAA;EACA,eAAA;AC7ED","sourcesContent":["\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#favs {\n\t::v-deep .recommendation {\n\t\tmax-width: 100%;\n\t\tpadding: 8px 0;\n\t\tmargin-right: 0;\n\t\tborder-radius: var(--border-radius-large);\n\n\t\t.thumbnail {\n\t\t\tmargin-left: 8px;\n\t\t\twidth: 44px;\n\t\t\theight: 44px;\n\t\t}\n\n\t\t.details {\n\t\t\t.file-name .extension {\n\t\t\t\tvertical-align: top;\n\t\t\t}\n\n\t\t\t.reason {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t}\n\t}\n}\n#favs--empty-content {\n\ttext-align: center;\n\tmargin-top: 5vh;\n}\n\n","#favs ::v-deep .recommendation {\n  max-width: 100%;\n  padding: 8px 0;\n  margin-right: 0;\n  border-radius: var(--border-radius-large);\n}\n#favs ::v-deep .recommendation .thumbnail {\n  margin-left: 8px;\n  width: 44px;\n  height: 44px;\n}\n#favs ::v-deep .recommendation .details .file-name .extension {\n  vertical-align: top;\n}\n#favs ::v-deep .recommendation .details .reason {\n  display: none;\n}\n\n#favs--empty-content {\n  text-align: center;\n  margin-top: 5vh;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -33247,7 +33252,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("DashboardWidget", {
-    attrs: { id: "recommendations", items: _vm.favFiles },
+    attrs: { id: "favs", items: _vm.favFiles },
     scopedSlots: _vm._u([
       {
         key: "default",
@@ -33274,10 +33279,7 @@ var render = function() {
         fn: function() {
           return [
             _c("EmptyContent", {
-              attrs: {
-                id: "recommendations--empty-content",
-                icon: "icon-files-dark"
-              },
+              attrs: { id: "favs--empty-content", icon: "icon-files-dark" },
               scopedSlots: _vm._u([
                 {
                   key: "desc",

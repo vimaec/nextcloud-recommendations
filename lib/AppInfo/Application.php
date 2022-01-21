@@ -33,6 +33,7 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCA\Recommendations\Dashboard\RecommendationWidget;
 use OCA\Recommendations\Dashboard\FavouriteWidget;
+use OCA\Recommendations\Dashboard\ResourceWidget;
 
 class Application extends App implements IBootstrap {
 	public const APP_ID = 'recommendations';
@@ -45,6 +46,7 @@ class Application extends App implements IBootstrap {
 		$context->registerEventListener(LoadAdditionalScriptsEvent::class, FilesLoadAdditionalScriptsListener::class);
 		$context->registerDashboardWidget(RecommendationWidget::class);
 		$context->registerDashboardWidget(FavouriteWidget::class);
+		$context->registerDashboardWidget(ResourceWidget::class);
 	}
 
 	public function boot(IBootContext $context): void {

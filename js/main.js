@@ -28960,12 +28960,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************!*\
   !*** ./src/service/RecommendationService.js ***!
   \**********************************************/
-/*! exports provided: fetchRecommendedFiles */
+/*! exports provided: fetchRecommendedFiles, fetchResourceFiles */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRecommendedFiles", function() { return fetchRecommendedFiles; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchResourceFiles", function() { return fetchResourceFiles; });
 /* harmony import */ var _nextcloud_axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/axios */ "./node_modules/@nextcloud/axios/dist/index.js");
 /* harmony import */ var _nextcloud_axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_nextcloud_axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var nextcloud_server_dist_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! nextcloud-server/dist/router */ "./node_modules/nextcloud-server/dist/router.js");
@@ -28994,6 +28995,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var fetchRecommendedFiles = function fetchRecommendedFiles(always) {
   var url = Object(nextcloud_server_dist_router__WEBPACK_IMPORTED_MODULE_1__["generateUrl"])('/apps/recommendations/api/recommendations' + (always ? '/always' : ''));
+  return _nextcloud_axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (resp) {
+    return resp.data;
+  });
+};
+var fetchResourceFiles = function fetchResourceFiles() {
+  var url = Object(nextcloud_server_dist_router__WEBPACK_IMPORTED_MODULE_1__["generateUrl"])('/apps/recommendations/api/recommendations/resource');
   return _nextcloud_axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (resp) {
     return resp.data;
   });

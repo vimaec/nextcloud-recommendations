@@ -38,18 +38,23 @@ class RecommendationService {
 	/** @var IRecommendationSource */
 	private $sources;
 
+	private $resourceFiles;
+
+
 	/** @var IPreview */
 	private $previewManager;
 
 	public function __construct(RecentlyCommentedFilesSource $recentlyCommented,
 								RecentlyEditedFilesSource $recentlyEdited,
 								RecentlySharedFilesSource $recentlyShared,
+								ResourceFilesSource $resourcefiles,
 								IPreview $previewManager) {
 		$this->sources = [
 			$recentlyCommented,
 			$recentlyEdited,
 			$recentlyShared,
 		];
+		$this->resourceFiles = $resourcefiles;
 		$this->previewManager = $previewManager;
 	}
 
@@ -89,6 +94,20 @@ class RecommendationService {
 		$all = array_reduce($this->sources, function (array $carry, IRecommendationSource $source) use ($user) {
 			return array_merge($carry, $source->getMostRecentRecommendation($user, self::MAX_RECOMMENDATIONS));
 		}, []);
+
+		$sorted = $this->sortRecommendations($all);
+		$topX = $this->getDeduplicatedSlice($sorted, $max);
+
+		return $this->addPreviews($topX);
+	}
+
+	/**
+	 * @param IUser $user
+	 *
+	 * @return IRecommendation[]
+	 */
+	public function getResources(IUser $user, int $max = self::MAX_RECOMMENDATIONS): array {
+		$all = $this->resourceFiles->getResourceFiles($user, self::MAX_RECOMMENDATIONS);
 
 		$sorted = $this->sortRecommendations($all);
 		$topX = $this->getDeduplicatedSlice($sorted, $max);

@@ -21,28 +21,35 @@
 
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from '@nextcloud/axios'
+import { generateUrl } from 'nextcloud-server/dist/router'
+import { fetchResourceFiles } from '../service/RecommendationService'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
-		loadedFavs: false,
+		enabled: true,
+		loadedResource: false,
 		loading: false,
-		favFiles: [],
+		resourceFiles: [],
 	},
 	mutations: {
-		loadedFavs(state, val) {
-			state.loadedFavs = val
+		enabled(state, val) {
+			state.enabled = val
+		},
+		loadedResource(state, val) {
+			state.loadedResource = val
 		},
 		loading(state, val) {
 			state.loading = val
 		},
-		favFiles(state, val) {
-			state.favFiles = val
+		resourceFiles(state, val) {
+			state.resourceFiles = val
 		},
 	},
 	actions: {
-        /**
+		/**
 		 * Toggle the recommendations and fetch recommended files if required
 		 * @async
 		 * @param {Object} context the store context
@@ -50,7 +57,7 @@ export default new Vuex.Store({
 		 */
 		async enabled(context, enabled) {
 			context.commit('enabled', enabled)
-			context.dispatch('fetchFavs')
+			context.dispatch('fetchResource')
 		},
 		/**
 		 * Fetch recommendations and current enabled setting
@@ -58,24 +65,17 @@ export default new Vuex.Store({
 		 * @param {Object} context the store context
 		 * @param {boolean} [always] set to true to always get recommendations regardless of enabled setting
 		 */
-		async fetchFavs(context) {
-			if (context.state.loadedFavs || context.state.loading) {
+		async fetchResource(context, always) {
+			if (context.state.loadedResource || context.state.loading) {
 				return
 			}
 			this.commit('loading', true)
-			const fetched = await OC.Files.getClient().getFilteredFiles(
-                {
-                    favorite: true
-                }
-            ).then(function(state,result){
-                return result
-            });
-			if (fetched !==undefined) {
-				for (var i =0 ;i<fetched.length;i=i+1){
-					fetched[i].id = fetched[i].id.toString(); 
-				}
-				context.commit('favFiles', fetched)
-				this.commit('loadedFavs', true)
+			const fetched = await fetchResourceFiles()
+
+			context.commit('enabled', fetched.enabled)
+			if (fetched.recommendations) {
+				context.commit('resourceFiles', fetched.recommendations)
+				this.commit('loadedResource', true)
 			}
 			this.commit('loading', false)
 		},

@@ -51,7 +51,7 @@ class ResourceFilesSource {
 	public function getResourceFiles(IUser $user, int $max): array {
 
 		$resourcePath = \OC::$server->getConfig()->getSystemValue('resourceFolder','/Resources');
-		$userFolder = $this->serverContainer->getUserFolder($user->getUID());
+		$userFolder = $this->serverContainer->getUserFolder(explode("/",$resourcePath)[1]);
 
 		return array_filter(array_map(function (Node $node) use ($userFolder) {
 			try {
@@ -64,7 +64,7 @@ class ResourceFilesSource {
 			} catch (StorageNotAvailableException $e) {
 				return null;
 			}
-		}, $userFolder->get($resourcePath)->search("")), function ($entry) {
+		}, $userFolder->get(explode("files/",$resourcePath)[1])->search("")), function ($entry) {
 			return $entry !== null;
 		});
 	}
